@@ -49,10 +49,45 @@ void ParseRes(char *name, char *node1, char *node2, double value)
 {
 	int numnodes;
 	Node_Entry **nodelist;
-	
+	Device_Entry *deviceRes;
+
 	printf("[Resistor parsed ...]\n");
 	printf("   name=%s, node+=%s, node-=%s, R=%e\n", name, node1, node2, value);
 	nRes++;
+
+	deviceRes = (struct device_s *) malloc(sizeof(struct device_s));
+	deviceRes->name=name;
+	deviceRes->numnodes=2;
+	nodelist = (struct node_s**) malloc( 2 * sizeof(struct node_s*) );
+	nodelist[0]->name=node1;
+	nodelist[1]->name=node2;
+	deviceRes->nodelist = nodelist;
+	deviceRes->value=value;
+	if (Reshead==NULL)
+	{
+		*Reshead=deviceRes;
+	}
+	else
+	{
+		*Reshead->next=deviceRes;
+	}
+
+	Node_Entry *n1, *n2;
+	n1=(struct node_s *) malloc(sizeof(struct node_s));
+	n2=(struct node_s *) malloc(sizeof(struct node_s));
+	n1->name=node1;
+	n2->name=node2;
+	n1->next=n2;
+
+	if (nodelist==NULL)
+	{
+		*nodelist=n1;
+	}
+	else
+	{
+		nodelist->next=n1;
+		*nodelist=n2;
+	}
 
 	// Save the device, nodes, value info to the symbol tables.
 	// Please write your own code here ...
