@@ -30,7 +30,7 @@ extern int nVsrc;
 extern int nIsrc;
 extern int nVCCS;
 Node_Entry **NodeTable;
-Device_Entry **DeviceTable, **Reshead, **Caphead, **CapIChead, **Indhead, **IndIChead, **Vsrchead, **Isrchead, **VCCS;
+Device_Entry **DeviceTable, **Reshead, **Restail, **Caphead, **CapIChead, **Indhead, **IndIChead, **Vsrchead, **Isrchead, **VCCS;
 
 
 

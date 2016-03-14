@@ -42,21 +42,46 @@ void ParseRes(char *name, char *node1, char *node2, double value)
 	nRes++;
 
 	deviceRes = (struct device_s *) malloc(sizeof(struct device_s));
+	// if (deviceRes==NULL)
+	// {
+	// 	printf("malloc failed");
+	// 	exit(0);
+	// }
 	deviceRes->name=name;
 	deviceRes->numnodes=2;
-	nodelist = (struct node_s**) malloc( 2 * sizeof(struct node_s*) );
-	nodelist[0]->name=node1;
-	nodelist[1]->name=node2;
-	deviceRes->nodelist = nodelist;
+	// nodelist = (struct node_s**) malloc( 2 * sizeof(struct node_s*) );
+	Node_Entry *N1=(struct node_s*) malloc(sizeof(struct node_s*) );
+	Node_Entry *N2=(struct node_s*) malloc(sizeof(struct node_s*) );
+	// if (nodelist==NULL)
+	// {
+	// 	printf("malloc failed");
+	// 	exit(0);
+	// }
+	N1->name=node1;
+	N2->name=node2;
+	N1->next=N2;
+	nodelist=&N1;
+    deviceRes->nodelist = nodelist;
 	deviceRes->value=value;
+	deviceRes->next=NULL;
+
 	if (Reshead==NULL)
 	{
-		*Reshead=deviceRes;
+		Reshead=&deviceRes;
+		// Restail=&deviceRes;
+		printf(" Head NULL\n");
+	}
+	else if (Restail==NULL)
+	{
+		Restail=&deviceRes;
+		(*Reshead)->next=*Restail;
+		printf("Tail NULL\n");
 	}
 	else
 	{
-	    deviceRes->next=(*Reshead)->next;
-		(*Reshead)->next=deviceRes;
+	    deviceRes->next=(*Restail)->next;
+	    (*Restail)->next=deviceRes;
+	    Restail=&deviceRes;
 	}
 
 	Node_Entry *n1, *n2;
@@ -68,14 +93,14 @@ void ParseRes(char *name, char *node1, char *node2, double value)
 
 	if (Nodelist==NULL)
 	{
-		*Nodelist=n1;
+		Nodelist=&n1;
 	}
 	else
 	{
 		(*Nodelist)->next=n1;
-		*nodelist=n2;
+		nodelist=&n2;
 	}
-	printf("name: %s,",(*Reshead)->name);
+	printf("%s\n", (*Reshead)->name);
 
 	// Save the device, nodes, value info to the symbol tables.
 	// Please write your own code here ...
@@ -83,6 +108,10 @@ void ParseRes(char *name, char *node1, char *node2, double value)
 
 int main()
 {
-    ParseRes('R1','N01','N02',1);
+    ParseRes("R1","N01","N02",1.00);
+    ParseRes("R2","N01","N02",1.00);
+    ParseRes("R3","N01","N02",1.00);
+    printf("name: %s %s",(*Reshead)->name,(*Reshead)->next->name);
+
     return 0;
 }
