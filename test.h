@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Global variables defined for the parser utility functions
 struct node_s
 {
 	char *name;	// node name to be allocated
@@ -23,27 +22,5 @@ struct device_s {
 	struct device_s *next;
 };
 typedef struct device_s Device_Entry;
-extern int nRes;
-extern int nCap;
-extern int nInd;
-extern int nVsrc;
-extern int nIsrc;
-extern int nVCCS;
-Node_Entry **NodeTable;
-Device_Entry **DeviceTable, **Reshead, **Restail, **Caphead, **CapIChead, **Indhead, **IndIChead, **Vsrchead, **Isrchead, **VCCS;
-
-
-
-
-extern void Init_parse_util();
-extern void ParseRes(char *str, char *node1, char *node2, double value);
-//extern void ParseCap(char *str, char *node1, char *node2, double value);
-//extern void ParseCapIC(char *str, char *node1, char *node2, double value, double init);
-//extern void ParseInd(char *str, char *node1, char *node2, double value);
-//extern void ParseIndIC(char *str, char *node1, char *node2, double value, double init);
-//extern void ParseVsrc(char *str, char *node1, char *node2, double value);
-//extern void ParseIsrc(char *str, char *node1, char *node2, double value);
-//extern void ParseVCCS(char *str, char *node1, char *node2, char *node3, char *node4, double value);
-//extern void Summarize();
 
 #endif // TEST_H_INCLUDED
